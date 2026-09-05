@@ -1,0 +1,59 @@
+version: '3.9'
+
+# ─── Volumes persistentes ─────────────────────────────────────────────────────
+# O SQLite fica em um volume Docker nomeado.
+# Dados são preservados ao parar/reiniciar containers.
+# Para resetar tudo: docker compose down -v
+volumes:
+  pbl_db_data:
+    driver: local
+
+# ─── Redes internas ───────────────────────────────────────────────────────────
+networks:
+  pbl_net:
+    driver: bridge
+
+# ─── Serviços ─────────────────────────────────────────────────────────────────
+services:
+
+  # ── Backend C++ ─────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pbl_backend
+    restart: unless-stopped
+    environment:
+      PORT: "8080"
+      JWT_SECRET: "${JWT_SECRET:-pbl-super-secret-change-in-production}"
+    volumes:
+      - pbl_db_data:/data
+    ports:
+      - "8080:8080"
+    networks:
+      - pbl_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # ── Frontend React ────────────────────────────────────────────────────────────
+  # Porta 3000 em vez de 80 para funcionar sem root no Codespaces
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # "auto" = frontend detecta a URL do backend em runtime (Codespaces-friendly)
+        VITE_API_URL: "auto"
+    container_name: pbl_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    networks:
+      - pbl_net
+    depends_on:
+      backend:
+        condition: service_healthy

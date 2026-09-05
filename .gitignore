@@ -1,0 +1,23 @@
+# Build artifacts
+backend/pbl-backend
+backend/pbl-backend-test
+backend/third_party/*.o
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Env
+.env
+
+# Database (não versionar dados locais)
+*.db
+*.db-wal
+*.db-shm
+
+# Docker volumes
+.docker/
+
+# OS
+.DS_Store
+Thumbs.db

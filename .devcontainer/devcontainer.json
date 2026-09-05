@@ -1,0 +1,79 @@
+{
+  "name": "PBLLearn",
+
+  // Usa a imagem universal do GitHub com Node, Python, Docker, etc.
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+
+  // Recursos mínimos recomendados (escolha no Codespaces: 4-core)
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "32gb"
+  },
+
+  // Features adicionais instaladas automaticamente
+  "features": {
+    // Docker-in-Docker: permite rodar docker compose dentro do Codespace
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    },
+    // C++ toolchain completo
+    "ghcr.io/devcontainers/features/cpp:1": {}
+  },
+
+  // Portas expostas automaticamente pelo Codespaces
+  "forwardPorts": [80, 8080, 5173],
+  "portsAttributes": {
+    "80": {
+      "label": "Frontend (produção)",
+      "onAutoForward": "notify",
+      "protocol": "https"
+    },
+    "8080": {
+      "label": "Backend API",
+      "onAutoForward": "notify",
+      "protocol": "https"
+    },
+    "5173": {
+      "label": "Frontend (dev mode)",
+      "onAutoForward": "notify",
+      "protocol": "https"
+    }
+  },
+
+  // Extensões VSCode instaladas automaticamente
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "ms-azuretools.vscode-docker",
+        "PKief.material-icon-theme",
+        "ms-vscode.vscode-typescript-next",
+        "formulahendry.code-runner"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[cpp]": {
+          "editor.defaultFormatter": "ms-vscode.cpptools"
+        },
+        "C_Cpp.default.cppStandard": "c++17",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  // Comando executado UMA vez após criação do container
+  "onCreateCommand": "bash .devcontainer/setup.sh",
+
+  // Comando executado toda vez que o Codespace inicia
+  "postStartCommand": "echo '✅ PBLLearn pronto! Execute: docker compose up --build -d'",
+
+  // Usuário padrão
+  "remoteUser": "codespace"
+}

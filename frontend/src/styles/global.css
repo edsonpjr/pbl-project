@@ -1,0 +1,170 @@
+/* ── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Design Tokens — Light Mode ─────────────────────────────────────────────── */
+:root {
+  /* Canvas */
+  --color-canvas-default:    #ffffff;
+  --color-canvas-subtle:     #f6f8fa;
+  --color-canvas-inset:      #eff2f5;
+
+  /* Border */
+  --color-border-default:    #d0d7de;
+  --color-border-muted:      #e1e7ed;
+
+  /* Foreground */
+  --color-fg-default:        #1f2328;
+  --color-fg-muted:          #656d76;
+  --color-fg-subtle:         #9198a1;
+  --color-fg-onEmphasis:     #ffffff;
+
+  /* Accent (azul GitHub) */
+  --color-accent-fg:         #0969da;
+  --color-accent-emphasis:   #0550ae;
+  --color-accent-muted:      rgba(9, 105, 218, 0.1);
+  --color-accent-subtle:     #dbeafe;
+
+  /* Success */
+  --color-success-fg:        #1a7f37;
+  --color-success-emphasis:  #1a7f37;
+  --color-success-subtle:    #dcfce7;
+  --color-success-muted:     rgba(26, 127, 55, 0.1);
+
+  /* Danger */
+  --color-danger-fg:         #cf222e;
+  --color-danger-emphasis:   #a40e26;
+  --color-danger-subtle:     #fee2e2;
+  --color-danger-muted:      rgba(207, 34, 46, 0.1);
+
+  /* Warning */
+  --color-warning-fg:        #9a6700;
+  --color-warning-subtle:    #fef3c7;
+
+  /* XP / Gamificação */
+  --color-xp-gold:           #f59e0b;
+  --color-xp-subtle:         #fffbeb;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+
+  /* Spacing */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Border radius */
+  --radius-sm:  4px;
+  --radius-md:  6px;
+  --radius-lg: 10px;
+  --radius-xl: 16px;
+
+  /* Shadow */
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:  0 3px 8px rgba(0,0,0,0.08);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.10);
+
+  /* Transition */
+  --transition: 150ms ease;
+}
+
+/* ── Dark Mode ───────────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-canvas-default:    #0d1117;
+  --color-canvas-subtle:     #161b22;
+  --color-canvas-inset:      #010409;
+
+  --color-border-default:    #30363d;
+  --color-border-muted:      #21262d;
+
+  --color-fg-default:        #e6edf3;
+  --color-fg-muted:          #848d97;
+  --color-fg-subtle:         #6e7681;
+  --color-fg-onEmphasis:     #ffffff;
+
+  --color-accent-fg:         #58a6ff;
+  --color-accent-emphasis:   #1f6feb;
+  --color-accent-muted:      rgba(56, 139, 253, 0.1);
+  --color-accent-subtle:     #1c2d47;
+
+  --color-success-fg:        #3fb950;
+  --color-success-emphasis:  #238636;
+  --color-success-subtle:    #122d1e;
+  --color-success-muted:     rgba(46, 160, 67, 0.1);
+
+  --color-danger-fg:         #f85149;
+  --color-danger-emphasis:   #da3633;
+  --color-danger-subtle:     #2d1519;
+  --color-danger-muted:      rgba(248, 81, 73, 0.1);
+
+  --color-warning-fg:        #d29922;
+  --color-warning-subtle:    #2d1f07;
+
+  --color-xp-gold:           #f59e0b;
+  --color-xp-subtle:         #1c1400;
+
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md:  0 3px 8px rgba(0,0,0,0.4);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.5);
+}
+
+/* ── Reset & Base ────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-fg-default);
+  background: var(--color-canvas-default);
+  min-height: 100vh;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+a {
+  color: var(--color-accent-fg);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border-radius: 3px;
+}
+
+/* ── Utility classes ─────────────────────────────────────────────────────────── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── KaTeX math override ─────────────────────────────────────────────────────── */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: var(--space-3) 0; }
